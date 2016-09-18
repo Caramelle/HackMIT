@@ -14,10 +14,22 @@ def getInfo(title, year=None):
 def isGood(title, year=None):
     info = getInfo(title, year)
     rating=0
-    if float(info['Metascore'])>=60:
-        rating+=1
-    if float(info['imdbRating'])>=6:
-        rating+=1
-    if float(info['tomatoRating'])>=6:
-        rating+=1
-    return rating>=2
+    try:
+        if float(info['Metascore'])>=60:
+            rating+=1
+    except:
+        pass
+    try:
+        if float(info['imdbRating'])>=6:
+            rating+=1
+    except:
+        pass
+    try:
+        if float(info['tomatoRating'])>=6:
+            rating+=1
+    except:
+        pass
+    if rating>=2:
+        return 1
+    else:
+        return 0
