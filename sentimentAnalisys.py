@@ -16,7 +16,7 @@ auth.set_access_token("455064135-Xq71sKiQQUqBP7fWDWfjSqczQz1kTJwUhcy5T5Fs", "rGt
 api = tweepy.API(auth)
 
 
-with open('movies.csv', 'rb') as f:
+with open('upcoming.csv', 'rb') as f:
     reader = csv.reader(f)
     for row in reader:
 		movie_tweets = api.search(row, rpp=30)
@@ -51,7 +51,7 @@ with open('movies.csv', 'rb') as f:
 
 			output = [title, anger, disgust, fear, joy, sadness, analytical, confident, tentative, openess, conscientiousness, extraversion, agreeableness, emotionalRange]
 
-			ofile  = open('scores.csv', "a")
+			ofile  = open('predictions.csv', "a")
 			writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
 			writer.writerow(output)
