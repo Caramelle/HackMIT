@@ -1,0 +1,8 @@
+six==1.10.0
+trollius==2.1
+futures==3.0.5
+greenlet==0.4.10
+msgpack-python==0.4.8
+neovim==0.1.9
+python-firebase==1.2
+requests==2.11.1
