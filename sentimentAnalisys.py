@@ -1,6 +1,7 @@
 import json
 import csv
 import tweepy
+from imdb import *
 from watson_developer_cloud import ToneAnalyzerV3
 
 
@@ -16,12 +17,13 @@ auth.set_access_token("455064135-Xq71sKiQQUqBP7fWDWfjSqczQz1kTJwUhcy5T5Fs", "rGt
 api = tweepy.API(auth)
 
 
-with open('upcoming.csv', 'rb') as f:
+with open('movies.csv', 'rb') as f:
     reader = csv.reader(f)
     for row in reader:
 		movie_tweets = api.search(row, rpp=30)
 
 		tweets = "";
+
 
 		for tweet in movie_tweets:
 			if "http" in tweet.text:
@@ -34,7 +36,7 @@ with open('upcoming.csv', 'rb') as f:
 			data = json.loads(results)
 
 
-			title = row;
+			title = str(row);
 			anger = data['document_tone']['tone_categories'][0]['tones'][0]['score']
 			disgust = data['document_tone']['tone_categories'][0]['tones'][1]['score']
 			fear = data['document_tone']['tone_categories'][0]['tones'][2]['score']
@@ -48,12 +50,14 @@ with open('upcoming.csv', 'rb') as f:
 			extraversion = data['document_tone']['tone_categories'][2]['tones'][2]['score']
 			agreeableness = data['document_tone']['tone_categories'][2]['tones'][3]['score']
 			emotionalRange = data['document_tone']['tone_categories'][2]['tones'][4]['score']
+			good = isGood(title)
 
-			output = [title, anger, disgust, fear, joy, sadness, analytical, confident, tentative, openess, conscientiousness, extraversion, agreeableness, emotionalRange]
+			if good == 1:
+				output = [title, anger, disgust, fear, joy, sadness, analytical, confident, tentative, openess, conscientiousness, extraversion, agreeableness, emotionalRange]
 
-			ofile  = open('predictions.csv', "a")
-			writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+				ofile  = open('scores.csv', "a")
+				writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
-			writer.writerow(output)
+				writer.writerow(output)
 
-			ofile.close()
+				ofile.close()
