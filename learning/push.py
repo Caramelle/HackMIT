@@ -4,5 +4,5 @@ from connect import fire
 def push(item, db=fire):
     return db.push(item)
 
-def get(item, db=fire):
-    return db.get(item)
+def get(db=fire):
+    return db.get()
