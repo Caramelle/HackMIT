@@ -33,3 +33,9 @@ def isGood(title, year=None):
         return 1
     else:
         return 0
+
+def getExtra(title):
+    info = getInfo(title)
+    m=re.match('([^ \t\n\r\v\f,]* [^ \t\n\r\v\f,]*).*', info['Actors'])
+    n=re.match('([^ \t\n\r\v\f,]* [^ \t\n\r\v\f,]*).*', info['Director'])
+    return m.group(1) + ',' + n.group(1) + ',' + info['Genre'].split(', ')[0] + ',' + info['Rated'] + ',' + info['Runtime'].split(' ')[0]

@@ -2,16 +2,15 @@ import urllib2
 import json 
 from key import api_key
 
-def getClass(anger,fear,disgust,sadness,joy):
-
+def getClass(anger,disgust,fear,sadness,joy,analytical,confident,tentative,openess,conscientiousness,extraversion,agreeableness,emotionalRange,actor,director,genre,age,runtime):
     data =  {
 
             "Inputs": {
 
                     "input1":
                     {
-                        "ColumnNames": ["anger", "fear", "disgust", "sadness", "joy", "good"],
-                        "Values": [ [ anger, fear, disgust, sadness, joy, '0']  ]
+                        "ColumnNames": ["title", "anger", "disgust", "fear", "joy", "sadness", "analytical", "confident", "tentative", "openess", "conscientiousness", "extraversion", "agreeableness", "emotionalRange", "rating", "actor", "director", "genre", "age", "runtime"],
+                        "Values": [ [ "title", anger, disgust, fear, joy, sadness, analytical, confident, tentative, openess, conscientiousness, extraversion, agreeableness, emotionalRange, 0, actor, director, genre, age, runtime ] ]
                     },        },
                 "GlobalParameters": {
     }
@@ -19,7 +18,8 @@ def getClass(anger,fear,disgust,sadness,joy):
 
     body = str.encode(json.dumps(data))
 
-    url = 'https://ussouthcentral.services.azureml.net/workspaces/e998d9efb75c4bb9942afc8a2a906d07/services/db374d86d0ff4080941af84a57380e36/execute?api-version=2.0&details=true'
+    url = 'https://ussouthcentral.services.azureml.net/workspaces/e998d9efb75c4bb9942afc8a2a906d07/services/d444694bd7a84b7daff40eb12c53a5af/execute?api-version=2.0&details=true'
+
     headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
     req = urllib2.Request(url, body, headers) 
@@ -41,3 +41,4 @@ def getClass(anger,fear,disgust,sadness,joy):
         print(error.info())
 
         print(json.loads(error.read()))                 
+

@@ -5,4 +5,4 @@ from key import key
 auth_payload = {"uid": "1"}
 token = create_token(key, auth_payload)
 
-fire = Firebase('https://hackmit-58edf.firebaseio.com/movies',auth_token=token)
+fire = Firebase('https://upcoming-b842b.firebaseio.com/movies',auth_token=token)
